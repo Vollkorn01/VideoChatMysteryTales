@@ -8,17 +8,18 @@ import store from "./store";
 
 Vue.config.productionTip = false
 
-const configOptions = {
+const firebaseConfig = {
   apiKey: "AIzaSyDN1eUIxBMmTkbT1n_lUM_j20Z-ckYn1Gs",
   authDomain: "videochatmysterytales.firebaseapp.com",
   databaseURL: "https://videochatmysterytales.firebaseio.com",
   projectId: "videochatmysterytales",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: ""
+  storageBucket: "videochatmysterytales.appspot.com",
+  messagingSenderId: "915336612614",
+  appId: "1:915336612614:web:7d4d9717eccfdc8a342c87",
+  measurementId: "G-9Q93B7CM98"
 };
 
-firebase.initializeApp(configOptions);
+firebase.initializeApp(firebaseConfig);
 
 firebase.auth().onAuthStateChanged(user => {
   store.dispatch("fetchUser", user);
