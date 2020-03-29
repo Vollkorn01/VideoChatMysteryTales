@@ -11,19 +11,15 @@
         <router-link v-show="selectedGame" to="/waiting_room">Start Game</router-link>
       </v-row>
     </div>
-    <WaitingRoom>
-    </WaitingRoom>
   </div>
 </template>
 
 <script>
 import { db } from "../firebase";
-import WaitingRoom from "./WaitingRoom"
 //import { firestore } from 'firebase';
 
 export default {
   components: {
-    WaitingRoom
   },
   data() {
     return {
