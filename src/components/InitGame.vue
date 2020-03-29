@@ -1,73 +1,67 @@
 <template>
-    <div class="container">
-        <div class="init-game">
-            <h1>Pick a game</h1>
-            <v-row align="center">
-                <v-col class="d-flex" cols="12" sm="6">
-                   <v-select
-                    :items="games"
-                     @input="setGame"
-                  label="Standard"
-                    ></v-select>
+  <div class="container">
+    <div class="init-game">
+      <h1>Pick a game</h1>
+      <v-row align="center">
+        <v-col class="d-flex" cols="12" sm="6">
+          <v-select :items="games" @input="setGame" label="Standard"></v-select>
         </v-col>
-    </v-row>
-    <v-row align ="center">
-        <button
-        @click="startGame">
-            Start Game
+      </v-row>
+      <v-row align="center">
+        <button @click="startGame">
+          Start Game
         </button>
-    </v-row>
-            <li class="collection-item" v-for="(game, idx) in games" :key="idx">
+      </v-row>
+      <!-- <li class="collection-item" v-for="(game, idx) in games" :key="idx">
                 {{ game.name }}, ({{ game.nr_of_players }} players)
-            </li>
-        </div>
+            </li> -->
     </div>
+  </div>
 </template>
 
 <script>
-    import {db} from '../firebase'
+import { db } from "../firebase";
 
-    export default {
-        data() {
-            return {
-                games: [],
-                selectedGame: '',
-            }
-        },
-        name: 'InitGame',
-        firestore: {
-            games: db.collection('games')
-        },
-        methods: {
-      /**
-       * sets the game the user has selected from drop down
-       */
-      setGame(val) {
-          this.selectedGame = val
-      },
-
-      startGame() {
-          console.log('route here')
-      }
-  }
-    };
-</script>
-
-  
-<script>
 export default {
-  name: 'InitGame',
-  components: {
+  data() {
+    return {
+      games: [],
+      selectedGame: ""
+    };
   },
-  data: function () {
-      return {
-          games: ['Test Name of Game', 'Test Name of Game2'],
-          selectedGame: '',
-      }
+  name: "InitGame",
+  methods: {
+    /**
+     * sets the game the user has selected from drop down
+     */
+    setGame(val) {
+      this.selectedGame = val;
+    },
+
+    startGame() {
+      console.log("route here");
+    },
+
+    buildString() {
+      let firestoreGames = [];
+      db.collection("games")
+        .get()
+        .then(querySnapshot => {
+          const documents = querySnapshot.docs.map(doc => doc.data());
+          documents.forEach(gameItem => {
+            var name = gameItem.name;
+            var nr_of_players = gameItem.nr_of_players;
+            var gameString = `${name} (${nr_of_players} players)`;
+            firestoreGames.push(gameString);
+          });
+        });
+      this.games = firestoreGames;
+    }
   },
-  
+  created() {
+    this.buildString();
+  }
 };
 </script>
 
-<style>
-</style>
+<style></style>
