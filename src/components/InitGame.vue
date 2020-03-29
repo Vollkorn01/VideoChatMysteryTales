@@ -11,13 +11,20 @@
         <router-link v-show="selectedGame" to="/waiting_room">Start Game</router-link>
       </v-row>
     </div>
+    <WaitingRoom>
+    </WaitingRoom>
   </div>
 </template>
 
 <script>
 import { db } from "../firebase";
+import WaitingRoom from "./WaitingRoom"
+//import { firestore } from 'firebase';
 
 export default {
+  components: {
+    WaitingRoom
+  },
   data() {
     return {
       games: [],
@@ -25,6 +32,9 @@ export default {
     };
   },
   name: "InitGame",
+  firestore: {
+    games: db.collection("games"),
+  },
   methods: {
     /**
      * sets the game the user has selected from drop down
@@ -32,7 +42,7 @@ export default {
     setGame(val) {
       this.selectedGame = val;
     },
-
+    
     /**
      * Fetch games collection from firebase
      * and create an array containing names of the games
@@ -54,8 +64,9 @@ export default {
     }
   },
   created() {
+    console.log('games', this.games);
     this.fetchGames();
-  }
+  },
 };
 </script>
 

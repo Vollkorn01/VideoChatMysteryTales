@@ -7,6 +7,9 @@
 export default {
   name: 'WaitingRoom',
   components: {
+  },
+  created() {
+      console.log('user: ', this.$store.getters.user);
   }
 };
 
