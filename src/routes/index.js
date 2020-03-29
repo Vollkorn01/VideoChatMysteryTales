@@ -7,6 +7,8 @@ import Home from '../components/Home'
 import InitGame from '../components/InitGame'
 import JoinGame from '../components/JoinGame'
 import WaitingRoom from '../components/WaitingRoom'
+import GameMap from '../components/GameMap'
+import GameCharacters from '../components/GameCharacters'
 
 Vue.use(Router)
 
@@ -48,8 +50,17 @@ const router = new Router({
         path: '/join_game',
         name: 'JoinGame',
         component: JoinGame,
+    },
+    {
+        path: '/game_map',
+        name: 'GameMap',
+        component: GameMap,
+    },
+    {
+        path: '/game_characters',
+        name: 'GameCharacter',
+        component: GameCharacters,
     }
-    
 ]
 });
 
