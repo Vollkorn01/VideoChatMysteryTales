@@ -34,7 +34,7 @@ const router = new Router({
         component: Dashboard
     },
     {
-        path: '/init_gane',
+        path: '/init_game',
         name: 'InitGame',
         component: InitGame,
     },
