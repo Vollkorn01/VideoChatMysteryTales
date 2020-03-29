@@ -1,9 +1,11 @@
 <template>
   <div id="app">
+    <v-app>
     <navbar></navbar>
     <main class="py-4">
       <router-view></router-view>
     </main>
+    </v-app>
   </div>
 </template>
 <script>
