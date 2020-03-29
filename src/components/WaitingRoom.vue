@@ -52,6 +52,7 @@ export default {
         playerIds: [2134, 1234, 1234],
         zoomIds: [1234, 1234, 1234]
       };
+      // eslint-disable-next-line no-unused-vars
       let createSession = db
         .collection("sessions")
         .doc(code)
