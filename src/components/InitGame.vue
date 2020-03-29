@@ -60,7 +60,6 @@ export default {
     }
   },
   created() {
-    console.log('games', this.games);
     this.fetchGames();
   },
 };
