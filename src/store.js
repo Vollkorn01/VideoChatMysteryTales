@@ -9,16 +9,23 @@ export default new Vuex.Store({
     user: {
       loggedIn: false,
       data: null
-    }
+    },
+    selectedGame: "",
   },
   getters: {
     user(state){
       return state.user
+    },
+    selectedGame(state){
+      return state.selectedGame
     }
   },
   mutations: {
     SET_LOGGED_IN(state, value) {
       state.user.loggedIn = value;
+    },
+    SET_GAME(state, value) {
+      state.selectedGame = value;
     },
     SET_USER(state, data) {
       state.user.data = data;
@@ -35,6 +42,9 @@ export default new Vuex.Store({
       } else {
         commit("SET_USER", null);
       }
+    },
+    setSelectedGame({ commit }, gameId) {
+      commit("SET_GAME", gameId);
     }
   }
 });

@@ -16,6 +16,9 @@
 
 <script>
 import { db } from "../firebase";
+import store from "../store";
+import { mapGetters } from "vuex";
+
 //import { firestore } from 'firebase';
 
 export default {
@@ -24,19 +27,24 @@ export default {
   data() {
     return {
       games: [],
-      selectedGame: ""
     };
   },
   name: "InitGame",
   firestore: {
     games: db.collection("games"),
   },
+  computed: {
+        ...mapGetters({
+      selectedGame: "selectedGame"
+    })
+  },
   methods: {
     /**
      * sets the game the user has selected from drop down
      */
     setGame(val) {
-      this.selectedGame = val;
+      store.dispatch("setSelectedGame", val);
+      console.log('selectedGame', this.selectedGame);
     },
     
     /**
