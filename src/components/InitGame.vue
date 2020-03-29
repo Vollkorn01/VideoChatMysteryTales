@@ -8,21 +8,19 @@
         </v-col>
       </v-row>
       <v-row align="center">
-        <button @click="startGame">
-          Start Game
-        </button>
+        <router-link v-show="selectedGame" to="/waiting_room">Start Game</router-link>
       </v-row>
-      <!-- <li class="collection-item" v-for="(game, idx) in games" :key="idx">
-                {{ game.name }}, ({{ game.nr_of_players }} players)
-            </li> -->
     </div>
   </div>
 </template>
 
 <script>
 import { db } from "../firebase";
+//import { firestore } from 'firebase';
 
 export default {
+  components: {
+  },
   data() {
     return {
       games: [],
@@ -30,6 +28,9 @@ export default {
     };
   },
   name: "InitGame",
+  firestore: {
+    games: db.collection("games"),
+  },
   methods: {
     /**
      * sets the game the user has selected from drop down
@@ -37,12 +38,12 @@ export default {
     setGame(val) {
       this.selectedGame = val;
     },
-
-    startGame() {
-      console.log("route here");
-    },
-
-    buildString() {
+    
+    /**
+     * Fetch games collection from firebase
+     * and create an array containing names of the games
+     */
+    fetchGames() {
       let firestoreGames = [];
       db.collection("games")
         .get()
@@ -59,8 +60,9 @@ export default {
     }
   },
   created() {
-    this.buildString();
-  }
+    console.log('games', this.games);
+    this.fetchGames();
+  },
 };
 </script>
 

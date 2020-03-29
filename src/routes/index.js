@@ -6,6 +6,7 @@ import Dashboard from '../components/Dashboard'
 import Home from '../components/Home'
 import InitGame from '../components/InitGame'
 import JoinGame from '../components/JoinGame'
+import WaitingRoom from '../components/WaitingRoom'
 
 Vue.use(Router)
 
@@ -14,7 +15,7 @@ const router = new Router({
     base: process.env.BASE_URL,
     routes: [
     {
-        path: '/',
+        path: '/home',
         name: 'Home',
         component: Home,
     },
@@ -37,6 +38,11 @@ const router = new Router({
         path: '/init_game',
         name: 'InitGame',
         component: InitGame,
+    },
+    {
+        path: '/waiting_room',
+        name: 'WaitingRoom',
+        component: WaitingRoom,
     },
     {
         path: '/join_game',
