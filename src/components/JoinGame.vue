@@ -8,6 +8,7 @@
 // eslint-disable-next-line no-unused-vars
 import { db } from "../firebase";
 import { mapGetters } from "vuex";
+import store from "../store";
 
 export default {
   name: "JoinGame",
@@ -40,6 +41,8 @@ export default {
           } else {
             this.setPlayer(session);
             this.$router.push('waiting_room')
+            //store session code in store if successfully joined
+            store.dispatch("setSessionCode", session.code);
           }
         });
     },

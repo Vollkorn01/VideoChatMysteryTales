@@ -2,8 +2,10 @@
   <div>
     <div>Waiting Room</div>
     <div>Code:</div>
-    <div>{{displayCode}}</div>
+    <div>{{sessionCode}}</div>
     <div>Send this code to your friends, so they can join!</div>
+      <v-btn @click="testGame">Refresh Player List</v-btn>
+
   </div>
 </template>
 <script>
@@ -16,13 +18,12 @@ export default {
   data() {
     return {
       games: [],
-      gameOne: {},
-      code: "bla",
+      sessions: null,
     };
   },
   firestore: {
     games: db.collection("games"),
-    gameOne: db.collection("games").doc("8eouFSKemqC5niZiGu2U")
+    sessions: db.collection("sessions"),
   },
   computed: {
     ...mapGetters({
@@ -30,16 +31,16 @@ export default {
       user: "user",
       sessionCode: "sessionCode"
     }),
-    displayCode() {
-        return this.code
-    }
   },
   methods: {
-
+      testGame() {
+          console.log('sessions', this.sessions)
+          console.log('sessionCode:', this.sessionCode)
+      }
   },
   created() {
       this.code = this.sessionCode;
-  }
+  },
 };
 </script>
 
