@@ -19,13 +19,13 @@ import { db } from "../firebase";
 import store from "../store";
 import { mapGetters } from "vuex";
 
-//import { firestore } from 'firebase';
 
 export default {
   components: {},
   data() {
     return {
       games: [],
+      code: "",
     };
   },
   name: "InitGame",
@@ -34,7 +34,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      selectedGame: "selectedGame"
+      selectedGame: "selectedGame",
+            user: "user"
+
     })
   },
   methods: {
@@ -44,7 +46,49 @@ export default {
     setGame(val) {
       store.dispatch("setSelectedGame", val);
       console.log("selectedGame", this.selectedGame);
+      this.generateCode();
+      this.createSessionFirestore(this.code);
     },
+
+        /**
+     * generates a random code
+     */
+    generateCode() {
+      const length = 5;
+      let result = "";
+      const characters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      const charactersLength = characters.length;
+      for (var i = 0; i < length; i++) {
+        result += characters.charAt(
+          Math.floor(Math.random() * charactersLength)
+        );
+      }
+      this.code = result;
+    },
+
+    /**
+     * creates a new game session on firestore and sets the code
+     */
+    createSessionFirestore(code) {
+      let data = {
+        code,
+        gameID: this.selectedGame,
+        playerIds: [],
+        zoomIds: [1234, 1234, 1234]
+      };
+      data.playerIds.push(this.user.data.email)
+
+
+      // eslint-disable-next-line no-unused-vars
+      let createSession = db
+        .collection("sessions")
+        .doc(code)
+        .set(data);
+      console.log('setSessionCode:',code)
+        store.dispatch("setSessionCode", code);
+    },
+    
 
     /**
      * Fetch games collection from firebase
@@ -59,9 +103,7 @@ export default {
         .get()
         .then(querySnapshot => {
           const documents = querySnapshot.docs.map(doc => doc.data());
-          console.log(documents);
           documents.forEach((gameItem, key) => {
-            console.log(gameItem);
             var name = gameItem.name;
             var nr_of_players = gameItem.nr_of_players;
             var gameString = `${name} (${nr_of_players} players)`;
