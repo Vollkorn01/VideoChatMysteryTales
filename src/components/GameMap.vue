@@ -14,9 +14,15 @@
               <v-list-item-title>{{ room.name }}</v-list-item-title>
 
               <v-list-item-subtitle>
-                {{ room.players }}
-                <!-- <v-list>
-                        <v-list-item
+                <!-- {{ room.players }} -->
+                <li
+                  class="collection-item"
+                  v-for="(p, idx) in room.players"
+                  :key="idx"
+                >
+                  {{ p }}
+                </li>
+                <!-- <li
                         v-for="(p, idx) in room.players"
                         :key="idx"
                         @click=""
@@ -24,8 +30,8 @@
                             <v-list-item-content>
                                 {{ p }}
                             <v-list-item-content>
-                        </v-list-item>
-                    </v-list> -->
+                        </li>
+                    </ul> -->
               </v-list-item-subtitle>
             </v-list-item-content>
 
@@ -113,13 +119,16 @@ export default {
   methods: {
     logData() {},
     putAllPlayersInFirstRoom() {
-    // TODO remove all players from the other chatrooms
-    db.collection("chatrooms").get()
-    .then(function(querySnapshot) {
+      // TODO remove all players from the other chatrooms
+      db.collection("chatrooms")
+        .get()
+        .then(function(querySnapshot) {
           querySnapshot.forEach(function(doc) {
-              db.collection("chatrooms").doc(doc.id).update({players: []});
+            db.collection("chatrooms")
+              .doc(doc.id)
+              .update({ players: [] });
           });
-    });
+        });
 
       db.collection("sessions")
         .doc(this.code)
@@ -131,7 +140,6 @@ export default {
             .doc(this.chatrooms[0].id)
             .update({ players: allPlayers });
         });
-
     },
 
     enterChatroom(room_id) {
