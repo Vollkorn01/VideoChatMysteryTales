@@ -13,8 +13,7 @@
     <div>
       <v-btn @click="refreshPlayerList">Refresh Player List</v-btn>
     </div>
-    <p>
-        </p>
+    <p></p>
     <div>
       <v-btn @click="routeToDashboard">Start Game</v-btn>
     </div>
@@ -56,10 +55,59 @@ export default {
     },
     routeToDashboard() {
       this.$router.push("game_dashboard");
+    },
+    createPlayerWithCharacter() {
+      // todo: get list of characters from firebase
+      const characters = [
+        "FRNe6DGiXAgmLqXnCDnp",
+        "PoOai7vOAql1DSUClgu2",
+        "TqBIqBMrCbhck6lWwZWH",
+        "XylyLodsRn7XvOpnhEOW",
+        "n5E0XGIgceaRujDbq5a9",
+        "smxHfxoJ149W0wJ5UTUj"
+      ];
+
+      characters.forEach((character) => {
+        // eslint-disable-next-line no-unused-vars
+        let currentSession = db
+          .collection("characters")
+          .doc(character)
+          .get()
+          .then(snapshot => {
+            const characters = snapshot.data();
+            console.log("characters", characters);
+          });
+      });
+
+      // get character id and set character to 'taken'
+
+      // create new user with character id
+
+      /*         let currentSession = db.collection("players")
+        .doc(this.sessionCode)
+        .set()
+
+
+        let currentSession = db.collection("sessions")
+        .doc(this.sessionCode)
+        .get().then(snapshot => {
+          const session = snapshot.data();
+                  console.log('currentSession', session);
+
+
+          var allPlayers = session.playerIds;
+          db.collection("chatrooms")
+            .doc(this.chatrooms[0].id)
+            .update({ players: allPlayers });
+        }); */
+      /*         db.collection("sessions")
+        .doc(this.sessionCode)
+        .set() */
     }
   },
   created() {
     this.code = this.sessionCode;
+    this.createPlayerWithCharacter();
   }
 };
 </script>
