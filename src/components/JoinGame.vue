@@ -39,9 +39,8 @@ export default {
             alert("Game Not Found");
           } else {
             this.setPlayer(session);
+            this.$router.push('waiting_room')
           }
-          // do something with document
-          console.log(session);
         });
     },
     setPlayer(session) {

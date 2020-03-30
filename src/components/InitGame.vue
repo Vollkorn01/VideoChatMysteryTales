@@ -83,7 +83,6 @@ export default {
         .doc(code)
         .set(data);
 
-        
       console.log("setSessionCode:", code);
       store.dispatch("setSessionCode", code);
     },
