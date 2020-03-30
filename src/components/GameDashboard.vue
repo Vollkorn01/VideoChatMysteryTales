@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-tabs v-model="tab" background-color="primary" dark>
+    <v-tabs v-model="tab" background-color="cyan" dark>
       <v-tab>Map</v-tab>
       <v-tab>Story</v-tab>
       <v-tab>Your role</v-tab>
