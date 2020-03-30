@@ -20,6 +20,7 @@
                     required
                     autofocus
                     v-model="form.name"
+                    style="background-color:#E7EFFE;"
                   />
                 </div>
               </div>

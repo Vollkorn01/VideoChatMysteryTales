@@ -1,22 +1,22 @@
 <template>
   <div id="app">
     <v-app>
-    <navbar></navbar>
-    <main class="py-4">
-      <router-view></router-view>
-    </main>
+      <navbar></navbar>
+
+      <main style="background-color:#f5f5f5;" class="py-4">
+        <router-view></router-view>
+      </main>
     </v-app>
   </div>
 </template>
 <script>
 import navbar from "./components/Navbar";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    navbar,
+    navbar
   }
 };
-
 </script>
 
 <style>
