@@ -22,8 +22,7 @@ import { mapGetters } from "vuex";
 //import { firestore } from 'firebase';
 
 export default {
-  components: {
-  },
+  components: {},
   data() {
     return {
       games: [],
@@ -31,37 +30,45 @@ export default {
   },
   name: "InitGame",
   firestore: {
-    games: db.collection("games"),
+    games: db.collection("games")
   },
   computed: {
-        ...mapGetters({
+    ...mapGetters({
       selectedGame: "selectedGame"
     })
   },
   methods: {
     /**
-     * sets the game the user has selected from drop down
+     * stores the game id from the game the user has selected from drop down
      */
     setGame(val) {
       store.dispatch("setSelectedGame", val);
-      console.log('selectedGame', this.selectedGame);
+      console.log("selectedGame", this.selectedGame);
     },
-    
+
     /**
      * Fetch games collection from firebase
      * and create an array containing names of the games
      */
     fetchGames() {
-      let firestoreGames = [];
+      let firestoreGames = [
+        { text: "", value: "" },
+        { text: "", value: "" }
+      ];
       db.collection("games")
         .get()
         .then(querySnapshot => {
           const documents = querySnapshot.docs.map(doc => doc.data());
-          documents.forEach(gameItem => {
+          console.log(documents);
+          documents.forEach((gameItem, key) => {
+            console.log(gameItem);
             var name = gameItem.name;
             var nr_of_players = gameItem.nr_of_players;
             var gameString = `${name} (${nr_of_players} players)`;
-            firestoreGames.push(gameString);
+            const id = gameItem.id;
+
+            firestoreGames[key].text = gameString;
+            firestoreGames[key].value = id;
           });
         });
       this.games = firestoreGames;
@@ -69,7 +76,7 @@ export default {
   },
   created() {
     this.fetchGames();
-  },
+  }
 };
 </script>
 
