@@ -2,35 +2,20 @@
   <v-layout row>
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
-<!--         <v-toolbar color="cyan" dark>
+        <v-toolbar color="light-blue" dark>
           <v-toolbar-title>Rooms</v-toolbar-title>
 
           <v-spacer></v-spacer>
-        </v-toolbar> -->
+        </v-toolbar>
 
         <v-list two-line subheader>
           <v-list-item v-for="room in chatrooms" :key="room.name" @click="">
             <v-list-item-content>
               <v-list-item-title>{{ room.name }}</v-list-item-title>
-              <div v-show="room.name === 'Kitchen'">
-                <v-list-item-subtitle>
-                  Jasmine, Marianne, Thomas
-                </v-list-item-subtitle>
-              </div>
-              <div v-show="room.name === 'Rooftop'">
-                <v-list-item-subtitle>
-                  Megan, Carl
-                </v-list-item-subtitle>
-              </div>
-              <div v-show="room.name === 'Living room'">
-                <v-list-item-subtitle>
-                  Jamie
-                </v-list-item-subtitle>
-              </div>
 
-<!--               <v-list-item-subtitle>
+              <v-list-item-subtitle>
                 {{ room.players }}
-                 <v-list>
+                <!-- <v-list>
                         <v-list-item
                         v-for="(p, idx) in room.players"
                         :key="idx"
@@ -40,8 +25,8 @@
                                 {{ p }}
                             <v-list-item-content>
                         </v-list-item>
-                    </v-list>
-              </v-list-item-subtitle> -->
+                    </v-list> -->
+              </v-list-item-subtitle>
             </v-list-item-content>
 
             <v-list-item-action>
@@ -70,7 +55,7 @@ export default {
   data() {
     return {
       //   code: {},
-      code: "",
+      code: "2TYLX",
       //   session: {
       //     "07mdu": {
       //       code: "07mdu",
@@ -128,6 +113,14 @@ export default {
   methods: {
     logData() {},
     putAllPlayersInFirstRoom() {
+    // TODO remove all players from the other chatrooms
+    db.collection("chatrooms").get()
+    .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+              db.collection("chatrooms").doc(doc.id).update({players: []});
+          });
+    });
+
       db.collection("sessions")
         .doc(this.code)
         .get()
@@ -138,7 +131,7 @@ export default {
             .doc(this.chatrooms[0].id)
             .update({ players: allPlayers });
         });
-        // TODO remove all players from the other chatrooms
+
     },
 
     enterChatroom(room_id) {
@@ -174,7 +167,7 @@ export default {
     }
   },
   created() {
-    this.code = this.sessionCode;
+    // this.code = this.sessionCode;
     this.logData();
     this.putAllPlayersInFirstRoom();
   }
