@@ -9,6 +9,7 @@ import JoinGame from '../components/JoinGame'
 import WaitingRoom from '../components/WaitingRoom'
 import GameMap from '../components/GameMap'
 import GameCharacters from '../components/GameCharacters'
+import GameDashboard from '../components/GameDashboard'
 
 Vue.use(Router)
 
@@ -60,7 +61,12 @@ const router = new Router({
         path: '/game_characters',
         name: 'GameCharacter',
         component: GameCharacters,
-    }
+    },
+    {
+        path: '/game_dashboard',
+        name: 'GameDashboard',
+        component: GameDashboard,
+    },
 ]
 });
 
