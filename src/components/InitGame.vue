@@ -19,13 +19,12 @@ import { db } from "../firebase";
 import store from "../store";
 import { mapGetters } from "vuex";
 
-
 export default {
   components: {},
   data() {
     return {
       games: [],
-      code: "",
+      code: ""
     };
   },
   name: "InitGame",
@@ -35,8 +34,7 @@ export default {
   computed: {
     ...mapGetters({
       selectedGame: "selectedGame",
-            user: "user"
-
+      user: "user"
     })
   },
   methods: {
@@ -50,7 +48,7 @@ export default {
       this.createSessionFirestore(this.code);
     },
 
-        /**
+    /**
      * generates a random code
      */
     generateCode() {
@@ -77,18 +75,18 @@ export default {
         playerIds: [],
         zoomIds: [1234, 1234, 1234]
       };
-      data.playerIds.push(this.user.data.email)
-
+      data.playerIds.push(this.user.data.email);
 
       // eslint-disable-next-line no-unused-vars
       let createSession = db
         .collection("sessions")
         .doc(code)
         .set(data);
-      console.log('setSessionCode:',code)
-        store.dispatch("setSessionCode", code);
+
+        
+      console.log("setSessionCode:", code);
+      store.dispatch("setSessionCode", code);
     },
-    
 
     /**
      * Fetch games collection from firebase
