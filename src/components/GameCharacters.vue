@@ -22,16 +22,28 @@ export default {
     return {
       characters: {
         qegsdvb: {
-          name: "Sepperl",
-          publicDescription: "Sepperl lives in the mountains"
+          name: "Jasmine Phelps",
+          publicDescription: "Seth Phelps’ widow, his second marriage – formerly an influencer and model for cgi design"
         },
         nvnklv: {
-          name: "Hannes",
-          publicDescription: "Hannes lives by the river"
+          name: "Marianne Pfyffer",
+          publicDescription: "Seth’s oldest child, she is a full-time streamer. "
         },
         nvadsf: {
-          name: "Rosina",
-          publicDescription: "Rosina lives in a castle"
+          name: "Thomas Pfyffer",
+          publicDescription: "Marianne’s husband, who owns a fueldriven motor vehicles sales and repair business"
+        },
+        khadfg: {
+          name: "Megan Ross",
+          publicDescription: "Seth’s middle child, a well-known writer of a detective blog."
+        },
+        sdgb: {
+          name: "Carl Ross",
+          publicDescription: "Megan’s husband, a programmer."
+        },
+        bbkbk: {
+          name: "Jamie Phelps",
+          publicDescription: "Seth’s youngest child, an online refuser, who still lives with her father."
         }
       }
     };
