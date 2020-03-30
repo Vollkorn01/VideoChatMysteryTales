@@ -10,6 +10,7 @@ import WaitingRoom from '../components/WaitingRoom'
 import GameMap from '../components/GameMap'
 import GameCharacters from '../components/GameCharacters'
 import GameDashboard from '../components/GameDashboard'
+import YourRole from '../components/YourRole'
 
 Vue.use(Router)
 
@@ -66,6 +67,11 @@ const router = new Router({
         path: '/game_dashboard',
         name: 'GameDashboard',
         component: GameDashboard,
+    },
+    {
+        path: '/your_role',
+        name: 'YourRole',
+        component: YourRole,
     },
 ]
 });
