@@ -55,7 +55,7 @@ export default {
   data() {
     return {
       //   code: {},
-      code: "2TYLX",
+      code: "",
       //   session: {
       //     "07mdu": {
       //       code: "07mdu",
@@ -159,7 +159,7 @@ export default {
     }
   },
   created() {
-    // this.code = this.sessionCode;
+    this.code = this.sessionCode;
     this.logData();
     this.putAllPlayersInFirstRoom();
   }
