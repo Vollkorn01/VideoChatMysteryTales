@@ -66,43 +66,31 @@ export default {
         "n5E0XGIgceaRujDbq5a9",
         "smxHfxoJ149W0wJ5UTUj"
       ];
+      let notTakenCharacters = [];
 
-      characters.forEach((character) => {
+      characters.some(character => {
         // eslint-disable-next-line no-unused-vars
         let currentSession = db
           .collection("characters")
           .doc(character)
           .get()
           .then(snapshot => {
-            const characters = snapshot.data();
-            console.log("characters", characters);
+            const char = snapshot.data();
+            if (char.taken === false) {
+              notTakenCharacters.push(char);
+            }
+          })
+          .then(() => {
+            // get first non taken character id and set character to 'taken = true'
+            db.collection("characters")
+              .doc(notTakenCharacters[0].id)
+              .update({ taken: true });
           });
       });
 
-      // get character id and set character to 'taken'
+      
 
       // create new user with character id
-
-      /*         let currentSession = db.collection("players")
-        .doc(this.sessionCode)
-        .set()
-
-
-        let currentSession = db.collection("sessions")
-        .doc(this.sessionCode)
-        .get().then(snapshot => {
-          const session = snapshot.data();
-                  console.log('currentSession', session);
-
-
-          var allPlayers = session.playerIds;
-          db.collection("chatrooms")
-            .doc(this.chatrooms[0].id)
-            .update({ players: allPlayers });
-        }); */
-      /*         db.collection("sessions")
-        .doc(this.sessionCode)
-        .set() */
     }
   },
   created() {
