@@ -11,6 +11,7 @@ export default new Vuex.Store({
       data: null
     },
     selectedGame: "",
+    sessionCode: undefined,
   },
   getters: {
     user(state){
@@ -18,18 +19,24 @@ export default new Vuex.Store({
     },
     selectedGame(state){
       return state.selectedGame
+    },
+    sessionCode(state){
+      return state.sessionCode
     }
   },
   mutations: {
     SET_LOGGED_IN(state, value) {
       state.user.loggedIn = value;
     },
+    SET_USER(state, data) {
+      state.user.data = data;
+    },
     SET_GAME(state, value) {
       state.selectedGame = value;
     },
-    SET_USER(state, data) {
-      state.user.data = data;
-    }
+    SET_SESSION_CODE(state, value) {
+      state.sessionCode = value;
+    },
   },
   actions: {
     fetchUser({ commit }, user) {
@@ -45,6 +52,9 @@ export default new Vuex.Store({
     },
     setSelectedGame({ commit }, gameId) {
       commit("SET_GAME", gameId);
+    },
+    setSessionCode({ commit }, code) {
+      commit("SET_SESSION_CODE", code);
     }
   }
 });
